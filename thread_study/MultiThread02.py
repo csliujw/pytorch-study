@@ -25,6 +25,7 @@ class MyThread(threading.Thread):
 
 def main():
     counter = {"number": 10000000}
+    # 和Java的类似
     thread1 = MyThread("Thread-1", counter)
     thread2 = MyThread("Thread-2", counter)
     thread1.start()

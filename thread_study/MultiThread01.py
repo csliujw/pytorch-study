@@ -1,31 +1,67 @@
 import threading
 from time import sleep, ctime
 
-
-def loop0():
-    print(f"loop0 start at:{ctime()}")
-    sleep(10)
-    print(f"loop0 end at:{ctime()}")
+number = 0
 
 
-def loop1():
-    print(f"loop1 start at:{ctime()}")
-    sleep(4)
-    print(f"loop1 end at:{ctime()}")
+def sing():
+    for i in range(5):
+        print("singe")
+        sleep(1)
+
+
+def dance():
+    for i in range(5):
+        print("dance")
+        sleep(1)
+
+
+def fun1(number):
+    print(f"number is {number}")
+
+
+def count(times):
+    global number
+    for i in range(times):
+        number += 1
+
+
+def test1():
+    print('程序开始于：', ctime())
+    threading.Thread(target=sing).start()
+    threading.Thread(target=dance).start()
+    print('任务完成于：', ctime())
+
+
+def test2():
+    th1 = threading.Thread(target=fun1, args=(100,))
+    th2 = threading.Thread(target=fun1, args=(100,))
+    th1.start()
+    th2.start()
+
+
+def test3():
+    th1 = threading.Thread(target=count, args=(100000,))
+    th2 = threading.Thread(target=count, args=(100000,))
+    th1.start()
+    th2.start()
 
 
 def main():
     print('程序开始于：', ctime())
-    threads = []
-    threads.append(threading.Thread(target=loop0(), args=None))
-    threads.append(threading.Thread(target=loop1(), args=None))
-
-    for i in range(len(threads)):
-        threads[i].start()
-        threads[i].join()
-
+    threading.Thread(target=sing).start()
+    threading.Thread(target=dance).start()
     print('任务完成于：', ctime())
+
+    while True:
+        # 查看当前有多少线程在运行
+        length = len(threading.enumerate())
+        print(length)
+        if length <= 1:
+            return
 
 
 if __name__ == '__main__':
-    main()
+    # 并发问题
+    test3()
+    print(number)

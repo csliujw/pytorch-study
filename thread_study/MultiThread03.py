@@ -20,7 +20,8 @@ Queue.join() 实际上意味着等到队列为空，再执行别的操作
 import threading
 import time
 
-class myThread (threading.Thread):
+
+class MyThread (threading.Thread):
     def __init__(self, threadID, name, counter):
         threading.Thread.__init__(self)
         self.threadID = threadID
@@ -34,18 +35,20 @@ class myThread (threading.Thread):
         # 释放锁，开启下一个线程
         threadLock.release()
 
+
 def print_time(threadName, delay, counter):
     while counter:
         time.sleep(delay)
         print ("%s: %s" % (threadName, time.ctime(time.time())))
         counter -= 1
 
+
 threadLock = threading.Lock()
 threads = []
 
 # 创建新线程
-thread1 = myThread(1, "Thread-1", 1)
-thread2 = myThread(2, "Thread-2", 2)
+thread1 = MyThread(1, "Thread-1", 1)
+thread2 = MyThread(2, "Thread-2", 2)
 
 # 开启新线程
 thread1.start()

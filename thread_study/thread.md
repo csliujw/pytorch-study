@@ -62,3 +62,7 @@ def __init__(self, group=None, target=None, name=None,
 
     """
 ```
+
+### 函数里面修改全局变量
+改地址内容不用加 global
+改地址值需要加 global
