@@ -8,6 +8,7 @@ CIFAR_10 分类Demo
     - 测试网络
 """
 import torch
+<<<<<<< HEAD
 import torch.nn
 import torch.optim
 import torch.utils.data
@@ -22,6 +23,16 @@ DOWN_LOAD = False
 show = ToPILImage()
 
 # 定义transform操作
+=======
+import torch.utils.data
+import torchvision
+import torchvision.transforms as transforms
+from torchvision.transforms import ToPILImage
+
+# 方便数据的可视化 Tensor 转 Image
+show = ToPILImage()
+
+>>>>>>> 38aa34c13f5cc9cf085a446fd6798cf01fd88f8d
 transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5), )  # 数据归一化
@@ -30,6 +41,7 @@ transform = transforms.Compose([
 def __init__(self, root, train=True,
              transform=None, target_transform=None,
              download=False):
+<<<<<<< HEAD
 这个是加载PyTorch内部预置的一些数据集，了解即可。
 """
 train_set = torchvision.datasets.CIFAR10(root="./", train=True, transform=transform, download=DOWN_LOAD)
@@ -46,11 +58,29 @@ test_load = torch.utils.data.DataLoader(
     test_set,
     batch_size=96,
     shuffle=False,
+=======
+"""
+train_set = torchvision.datasets.CIFAR10(root="./", train=True, transform=transform, download=True)
+train_set = torchvision.datasets.CIFAR10(root="./", train=False, transform=transform, download=True)
+
+train_load = torch.utils.data.DataLoader(
+    train_set,
+    batch_size=4,
+    shuffle=True,
+    num_workers=4
+)
+
+test_load = torch.utils.data.DataLoader(
+    train_set,
+    batch_size=4,
+    shuffle=True,
+>>>>>>> 38aa34c13f5cc9cf085a446fd6798cf01fd88f8d
     num_workers=4
 )
 
 classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
+<<<<<<< HEAD
 """
 展示一个图片
 """
@@ -145,3 +175,8 @@ if __name__ == '__main__':
     model = NetModel()
     train(model)
     validation(model)
+=======
+(data, label) = train_set[100]
+print(classes[label])
+show(((data + 1) / 2).resize(100, 100))
+>>>>>>> 38aa34c13f5cc9cf085a446fd6798cf01fd88f8d
